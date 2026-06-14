@@ -80,9 +80,6 @@ Os dados são salvos automaticamente no arquivo `servicos.dat` na raiz do projet
 - Enzo Ceglias Coutinho
 - Isaque Novaes
 - Arthur Nunes Berti Xavier
-- Tiago Cleto de Azeredo
-- Lucas de Souza Barboza
-- Daniel Stieg Radaelle
 
 ---
 
