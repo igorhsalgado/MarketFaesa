@@ -3,8 +3,7 @@ package com.example.marketfaesamain;
 import java.io.Serializable;
 import java.util.List;
 
-// Serializable permite que o Java converta este objeto em bytes para salvar em arquivo
-public class Servico implements Serializable {
+public abstract class Servico implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -14,7 +13,6 @@ public class Servico implements Serializable {
     private String descricao;
     private double valor;
 
-    // Contador estático não é serializado — precisa ser recalculado ao carregar
     private static int contadorId = 1;
 
     public Servico(String titulo, String categoria, String descricao, double valor) {
@@ -25,8 +23,6 @@ public class Servico implements Serializable {
         this.valor = valor;
     }
 
-    // Chamado pelo BancoDados após carregar a lista
-    // Garante que novos IDs continuem a partir do maior ID já existente
     public static void sincronizarContador(List<Servico> lista) {
         lista.stream()
                 .mapToInt(Servico::getId)
@@ -34,7 +30,14 @@ public class Servico implements Serializable {
                 .ifPresent(maiorId -> contadorId = maiorId + 1);
     }
 
+    // ====== MÉTODOS POLIMÓRFICOS ======
+    // As subclasses serão obrigadas a implementar esses métodos
+    public abstract String getTipo();
+    public abstract String getDetalhesExtras();
+
+    // Getters e Setters
     public int getId()           { return id; }
+    public void setId(int id)    { this.id = id; } // Necessário caso o tipo do serviço seja alterado na edição
     public String getTitulo()    { return titulo; }
     public String getCategoria() { return categoria; }
     public String getDescricao() { return descricao; }
@@ -44,9 +47,4 @@ public class Servico implements Serializable {
     public void setCategoria(String categoria) { this.categoria = categoria; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public void setValor(double valor)         { this.valor = valor; }
-
-    @Override
-    public String toString() {
-        return String.format("[%d] %s | %s | R$ %.2f", id, titulo, categoria, valor);
-    }
 }
