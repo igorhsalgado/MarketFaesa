@@ -30,35 +30,34 @@ public class TabelaServicos {
         // Ex: "titulo" → chama getTitulo() em cada Servico da lista
         TableColumn<Servico, Integer> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colId.setPrefWidth(50);
-        colId.setReorderable(false);
-        colId.setResizable(false);
+        colId.setPrefWidth(40);
+
+        TableColumn<Servico, String> colTipo = new TableColumn<>("Tipo");
+        colTipo.setCellValueFactory(new PropertyValueFactory<>("tipo")); // Usa polimorfismo (getTipo())
+        colTipo.setPrefWidth(80);
 
         TableColumn<Servico, String> colTitulo = new TableColumn<>("Título");
         colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-        colTitulo.setPrefWidth(210);
-        colTitulo.setReorderable(false);
-        colTitulo.setResizable(false);
+        colTitulo.setPrefWidth(150);
 
         TableColumn<Servico, String> colCategoria = new TableColumn<>("Categoria");
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colCategoria.setPrefWidth(130);
-        colCategoria.setReorderable(false);
-        colCategoria.setResizable(false);
+        colCategoria.setPrefWidth(110);
+        
+        TableColumn<Servico, String> colDetalhes = new TableColumn<>("Info Extra");
+        colDetalhes.setCellValueFactory(new PropertyValueFactory<>("detalhesExtras")); // Usa polimorfismo
+        colDetalhes.setPrefWidth(140);
 
         TableColumn<Servico, String> colDescricao = new TableColumn<>("Descrição");
         colDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        colDescricao.setPrefWidth(230);
-        colDescricao.setReorderable(false);
-        colDescricao.setResizable(false);
+        colDescricao.setPrefWidth(140);
 
         TableColumn<Servico, Double> colValor = new TableColumn<>("Valor (R$)");
         colValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
-        colValor.setPrefWidth(110);
-        colValor.setReorderable(false);
-        colValor.setResizable(false);
+        colValor.setPrefWidth(80);
 
-        tv.getColumns().addAll(colId, colTitulo, colCategoria, colDescricao, colValor);
+        // Atualize a linha que adiciona as colunas:
+        tv.getColumns().addAll(colId, colTipo, colTitulo, colCategoria, colDetalhes, colDescricao, colValor);
 
         // Vincula a ObservableList: qualquer mudança na lista reflete automaticamente na tabela
         tv.setItems(listaServicos);
